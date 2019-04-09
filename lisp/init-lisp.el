@@ -144,7 +144,8 @@
   (add-hook 'after-save-hook #'check-parens nil t))
 
 (defvar sanityinc/lispy-modes-hook
-  '(enable-paredit-mode
+  '(lispy-mode ;;enable-paredit-mode
+    lispy-mnemonic-mode
     sanityinc/enable-check-parens-on-save)
   "Hook run in all Lisp modes.")
 
