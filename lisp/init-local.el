@@ -4,10 +4,30 @@
 ;;Set default font on both .emacs and .Xresources
 (set-frame-font "Dejavu Sans Mono-14")
 
+(set-face-font 'default "-sgi-screen-medium-*-*-*-18-*-*-*-*-*-*-*")
+;; (set-mouse-color "red")
+
+;; (when (subrp (symbol-function 'x-backspace-delete-keys-p))
+;;   (fset 'builtin-x-backspace-delete-keys-p
+;;         (symbol-function 'x-backspace-delete-keys-p))
+;;   (defun my-x-backspace-delete-keys-p ()
+;;     t)
+;;   (defalias 'x-backspace-delete-keys-p 'my-x-backspace-delete-keys-p)
+;;   (if (eq window-system 'x)
+;;       (mapc (lambda (frame)
+;;               (when (frame-parameter frame 'display)
+;;                 (set-terminal-parameter frame 'normal-erase-is-backspace nil)
+;;                 (normal-erase-is-backspace-setup-frame frame)))
+;;             (frame-list))))
+
+
+
 
 ;;Color theme
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
-;; (load-theme 'sanityinc-tomorrow-bright t)
+;; (load-theme 'sanityinc-tomorrow-day t)
+(load-theme 'sanityinc-tomorrow-bright t)
+
 ;; (load-theme 'acme t)
 
 ;; case-insensitive search
@@ -309,7 +329,8 @@ When called with 'ARG' always create a new temp buffer."
 (global-set-key [f5] 'save-buffer)
 
 ;; (global-set-key [f8]  'enter-theorem-other-window-like-sedan)
-(global-set-key [f6]  'ivy-switch-buffer)
+(define-key global-map [f6] nil)
+(global-set-key [f1]  'ivy-switch-buffer)
 (global-set-key [(control tab)] 'ace-window)
 
 ;; (global-set-key (kbd "C-x f") 'find-file) ; annoying mistakes
@@ -336,6 +357,40 @@ When called with 'ARG' always create a new temp buffer."
         ;; try-complete-lisp-symbol-partially
         ))
 
+(require 'mouse-copy)
+(mouse-copy-mode t)
+(setq mouse-yank-at-point t) ;; for secondary selection
 
+
+(global-set-key
+ (kbd "C-n")
+ (defhydra hydra-move
+   (:body-pre (next-line))
+   "move"
+   ("n" next-line)
+   ("p" previous-line)
+   ("f" forward-char)
+   ("F" forward-sexp)
+   ("b" backward-char)
+   ("B" backward-sexp)
+   ("a" beginning-of-line)
+   ("A" beginning-of-defun)
+   ("e" move-end-of-line)
+   ("E" end-of-defun)
+   ("v" scroll-up-command)
+   ;; Converting M-v to V here by analogy.
+   ("V" scroll-down-command)
+   ("l" recenter-top-bottom)))
+
+(defhydra hydra-yank-pop ()
+  "yank"
+  ("C-y" yank nil)
+  ("M-y" yank-pop nil)
+  ("y" (yank-pop 1) "next")
+  ("Y" (yank-pop -1) "prev")
+  ("l" browse-kill-ring "list" :color blue))
+
+(global-set-key (kbd "M-y") #'hydra-yank-pop/yank-pop)
+(global-set-key (kbd "C-y") #'hydra-yank-pop/yank)
 
 (provide 'init-local)

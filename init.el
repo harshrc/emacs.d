@@ -114,6 +114,7 @@
 ;;(require 'init-nix)
 (maybe-require-package 'nginx-mode)
 
+(require-package 'lispy)
 (require 'init-paredit)
 (require 'init-lisp)
 (require 'init-slime)
@@ -185,3 +186,4 @@
 ;; no-byte-compile: t
 ;; End:
 ;;; init.el ends here
+(put 'dired-find-alternate-file 'disabled nil)

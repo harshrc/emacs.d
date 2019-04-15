@@ -383,7 +383,7 @@ This command preserves the point position."
     (define-key map (kbd ";") #'lispy-comment)
     (define-key map (kbd "M-q") #'lispy-fill) ; fill-paragraph
     (define-key map (kbd "C-j") #'lispy-newline-and-indent)
-    (define-key map (kbd "RET") #'lispy-alt-line)
+    ;; (define-key map (kbd "RET") #'lispy-alt-line)
     ;; pairs
     (define-key map (kbd "(") #'lispy-parens)
     (define-key map (kbd ")") #'lispy-right-nostring)
@@ -391,8 +391,8 @@ This command preserves the point position."
     (define-key map (kbd "}") #'lispy-brackets)
     ;; Basic editing
     (define-key map (kbd "C-y") #'lispy-yank)
-    ;; (define-key map (kbd "C-d") #'lispy-delete)
-    (define-key map (kbd "DEL") #'lispy-delete)
+    (define-key map (kbd "C-d") #'lispy-delete)
+    ;; (define-key map (kbd "DEL") #'lispy-delete)
     ;; insert
     (define-key map (kbd "M-\"") #'lispy-meta-doublequote)
     (define-key map (kbd "\"") #'lispy-quotes)
