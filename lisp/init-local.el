@@ -2,37 +2,25 @@
 
 
 ;;Set default font on both .emacs and .Xresources
-(set-frame-font "Dejavu Sans Mono-14")
+;; (set-frame-font "Dejavu Sans Mono-14")
+(set-frame-font "Monospace-15")
 
-(set-face-font 'default "-sgi-screen-medium-*-*-*-18-*-*-*-*-*-*-*")
+;; (set-face-font 'default "-sgi-screen-medium-*-*-*-18-*-*-*-*-*-*-*")
 ;; (set-mouse-color "red")
-
-;; (when (subrp (symbol-function 'x-backspace-delete-keys-p))
-;;   (fset 'builtin-x-backspace-delete-keys-p
-;;         (symbol-function 'x-backspace-delete-keys-p))
-;;   (defun my-x-backspace-delete-keys-p ()
-;;     t)
-;;   (defalias 'x-backspace-delete-keys-p 'my-x-backspace-delete-keys-p)
-;;   (if (eq window-system 'x)
-;;       (mapc (lambda (frame)
-;;               (when (frame-parameter frame 'display)
-;;                 (set-terminal-parameter frame 'normal-erase-is-backspace nil)
-;;                 (normal-erase-is-backspace-setup-frame frame)))
-;;             (frame-list))))
-
 
 
 
 ;;Color theme
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 ;; (load-theme 'sanityinc-tomorrow-day t)
-(load-theme 'sanityinc-tomorrow-bright t)
+(load-theme 'sanityinc-tomorrow-blue t)
+
 
 ;; (load-theme 'acme t)
 
 ;; case-insensitive search
 (setq case-fold-search t)
-
+(menu-bar-mode t)
 
 (unless (package-installed-p 'imenu-anywhere)
   (package-install 'imenu-anywhere))
@@ -55,6 +43,20 @@
 
 
 
+
+
+;;;###autoload
+(defun ivy-with-thing-at-point (cmd)
+  (let ((ivy-initial-inputs-alist
+         (list
+          (cons cmd (thing-at-point 'symbol)))))
+    (funcall cmd)))
+
+;;;###autoload
+(defun -swiper-thing-at-point ()
+  (interactive)
+  (ivy-with-thing-at-point 'swiper))
+
 (use-package swiper
   :ensure t
   :commands (-swiper-thing-at-point)
@@ -69,18 +71,6 @@
   ;; C-k C-g to go back to where the research started
   ;; (swiper-stay-on-quit t)
   )
-
-;;;###autoload
-(defun ivy-with-thing-at-point (cmd)
-  (let ((ivy-initial-inputs-alist
-         (list
-          (cons cmd (thing-at-point 'symbol)))))
-    (funcall cmd)))
-
-;;;###autoload
-(defun -swiper-thing-at-point ()
-  (interactive)
-  (ivy-with-thing-at-point 'swiper))
 
 (use-package avy
   :ensure t
@@ -208,7 +198,8 @@ When called with 'ARG' always create a new temp buffer."
   ("n"     next-buffer "next")
   ("p"     previous-buffer "prev")
   ("h"     bury-buffer "hide")
-  ("k"     kill-buffer-and-window "kill")
+  ("k"     kill-current-buffer "kill b")
+  ("K"     kill-buffer-and-window "kill w")
   ("f"     counsel-find-file "find-file")
   ("r"     revert-buffer "revert")
   ("t"     -temp-buffer "temp")
@@ -229,7 +220,7 @@ When called with 'ARG' always create a new temp buffer."
 
 (add-hook 'lisp-mode-hook 'dim-parentheses)
 
-(setq inferior-lisp-program "~/sources/ccl/lx86cl64")
+(setq inferior-lisp-program "~/work/sources/ccl/lx86cl64")
 
 
 
@@ -363,9 +354,9 @@ When called with 'ARG' always create a new temp buffer."
 
 
 (global-set-key
- (kbd "C-n")
+ (kbd "C-l")
  (defhydra hydra-move
-   (:body-pre (next-line))
+   (:body-pre (recenter-top-bottom))
    "move"
    ("n" next-line)
    ("p" previous-line)
@@ -392,5 +383,12 @@ When called with 'ARG' always create a new temp buffer."
 
 (global-set-key (kbd "M-y") #'hydra-yank-pop/yank-pop)
 (global-set-key (kbd "C-y") #'hydra-yank-pop/yank)
+
+
+;; Annoyance
+(define-key cua--rectangle-keymap cua-rectangle-mark-key nil)
+(define-key cua--region-keymap cua-rectangle-mark-key nil)
+(define-key cua-global-keymap cua-rectangle-mark-key nil)
+(define-key org-mode-map [(control return)] #'org-insert-heading-respect-content)
 
 (provide 'init-local)
