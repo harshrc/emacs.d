@@ -2,8 +2,8 @@
 
 
 ;;Set default font on both .emacs and .Xresources
-;; (set-frame-font "Dejavu Sans Mono-14")
-(set-frame-font "Monospace-15")
+(set-frame-font "Dejavu Sans Mono-14")
+;; (set-frame-font "Monospace-15")
 
 ;; (set-face-font 'default "-sgi-screen-medium-*-*-*-18-*-*-*-*-*-*-*")
 ;; (set-mouse-color "red")
