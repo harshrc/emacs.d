@@ -13,13 +13,13 @@
 ;;Color theme
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 ;; (load-theme 'sanityinc-tomorrow-day t)
-(load-theme 'sanityinc-tomorrow-blue t)
+;; (load-theme 'sanityinc-tomorrow-blue t)
 
 
 ;; (load-theme 'acme t)
 
 ;; case-insensitive search
-(setq case-fold-search t)
+;; (setq case-fold-search t)
 (menu-bar-mode t)
 
 (unless (package-installed-p 'imenu-anywhere)
@@ -389,6 +389,6 @@ When called with 'ARG' always create a new temp buffer."
 (define-key cua--rectangle-keymap cua-rectangle-mark-key nil)
 (define-key cua--region-keymap cua-rectangle-mark-key nil)
 (define-key cua-global-keymap cua-rectangle-mark-key nil)
-(define-key org-mode-map [(control return)] #'org-insert-heading-respect-content)
+;; (define-key org-mode-map [(control return)] #'org-insert-heading-respect-content)
 
 (provide 'init-local)
