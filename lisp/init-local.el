@@ -235,35 +235,35 @@ When called with 'ARG' always create a new temp buffer."
   (pulse-eval-iterations 1)
   (pulse-eval-delay .13))
 
-(use-package lispy
-  :ensure t
-  :config
-  (progn
-    (after 'pulse-eval
-      (add-to-list
-       'pulse-eval-advices-alist
-       (cons 'lispy-mode '((lispy-eval . pulse-eval-highlight-forward-sexp-advice))))))
-  :custom
-  (lispy-no-permanent-semantic t)
-  (lispy-close-quotes-at-end-p t)
-  (lispy-eval-display-style 'overlay)
-  (lispy-visit-method 'projectile)
-  (lispy-compat '(edebug cider))
-  (lispy-avy-style-char 'at-full)
-  (lispy-avy-style-paren 'at-full)
-  (lispy-avy-style-symbol 'at-full)
-  (lispy-safe-copy t)
-  (lispy-safe-delete t)
-  (lispy-safe-paste t))
+;; (use-package lispy
+;;   :ensure t
+;;   :config
+;;   (progn
+;;     (after 'pulse-eval
+;;       (add-to-list
+;;        'pulse-eval-advices-alist
+;;        (cons 'lispy-mode '((lispy-eval . pulse-eval-highlight-forward-sexp-advice))))))
+;;   :custom
+;;   (lispy-no-permanent-semantic t)
+;;   (lispy-close-quotes-at-end-p t)
+;;   (lispy-eval-display-style 'overlay)
+;;   (lispy-visit-method 'projectile)
+;;   (lispy-compat '(edebug cider))
+;;   (lispy-avy-style-char 'at-full)
+;;   (lispy-avy-style-paren 'at-full)
+;;   (lispy-avy-style-symbol 'at-full)
+;;   (lispy-safe-copy t)
+;;   (lispy-safe-delete t)
+;;   (lispy-safe-paste t))
 
-(use-package lispy-mnemonic
-  :commands lispy-mnemonic-mode
-  ;; :after lisp-minor-mode
-  :hook
-  (lisp-mode . lispy-mnemonic-mode)
-  (inferior-lisp-mode . lispy-mnemonic-mode)
-  (emacs-lisp-mode . lispy-mnemonic-mode)
-  (lisp-interaction-mode . lispy-mnemonic-mode))
+;; (use-package lispy-mnemonic
+;;   :commands lispy-mnemonic-mode
+;;   ;; :after lisp-minor-mode
+;;   :hook
+;;   (lisp-mode . lispy-mnemonic-mode)
+;;   (inferior-lisp-mode . lispy-mnemonic-mode)
+;;   (emacs-lisp-mode . lispy-mnemonic-mode)
+;;   (lisp-interaction-mode . lispy-mnemonic-mode))
 
 (global-superword-mode 1)
 (diminish 'superword-mode)
@@ -390,5 +390,7 @@ When called with 'ARG' always create a new temp buffer."
 (define-key cua--region-keymap cua-rectangle-mark-key nil)
 (define-key cua-global-keymap cua-rectangle-mark-key nil)
 ;; (define-key org-mode-map [(control return)] #'org-insert-heading-respect-content)
+
+;; (define-key verilog-mode-map ";" nil)
 
 (provide 'init-local)
